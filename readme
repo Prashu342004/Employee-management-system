@@ -1,0 +1,24 @@
+employee_dict["101"] = {
+        "name" : "shubh",
+        "age" : 22,
+        "salary" : 22344555,
+        "department" : "it",
+        "skill" : "python",
+        "email" : "shubh@123.com"
+    }
+employee_dict["102"] = {
+        "name" : "hubh",
+        "age" : 20,
+        "salary" : 44555,
+        "department" : "ales",
+        "skill" : "communication",
+        "email" : "shubh@123.com"
+    }
+employee_dict["103"] = {
+        "name" : "ubh",
+        "age" : 20,
+        "salary" : 4455,
+        "department" : "ales",
+        "skill" : "communication",
+        "email" : "shubh@123.com"
+    }
