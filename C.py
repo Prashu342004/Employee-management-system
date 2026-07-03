@@ -11,54 +11,98 @@ def View_detail(func):
         return func()
     return add_feature
 
+""" This is used to check existing data stored in file"""
+
+def data_check(d):
+    try:
+        d = {}
+        data = []
+        with open("Data.txt","r") as f:
+            for i in f:
+                data = i.split("     ")
+                if data[0] not in employee_dict:
+                    d[data[0]] = eval(data[1]) # I have used eval() to convert string of dict to dict     #### but i can also use ast.literal_eval()   
+    except Exception:
+        print(" error occur")
+    return d
+
+
+
 """ This function is to create add data """
 
 def Add_employee():
-    while True:
+    d = {}
+    d = data_check(d)
+    data_entering = True
+    while data_entering:
         employee_id = input("Enter Employee ID :").strip().lower()
-        if employee_id in employee_dict:
+        if employee_id in employee_dict or employee_id in d:
             print("Entered id already exist")
             continue
         if employee_id == "":
             print("please enter employee id")
             continue
+        data_entering = False
+    
 
+    data_entering = True
+    while data_entering:
         name = input("Enter Name :").strip().lower()
         if name == "":
             print("Name should not be empty")
             continue
-
+        data_entering = False
+    
+    data_entering = True
+    while data_entering:
         try :
             age = int(input("Enter Age :"))
         except Exception:
             print("please enter integer value in Age")
             continue
-        if age <18:
-            print("Age must be older then 18")
-            continue
-
+        else:
+            if age <18:
+                print("Age must be older then 18")
+                continue
+        data_entering = False
+    
+    data_entering = True
+    while data_entering:
         try:
             salary = int(input("Enter Salary :"))
         except Exception:
             print("please enter integer value in Salary")
             continue
-
-        if salary<1:
-            print("Salary must be greater than 0")
-            continue
-
+        else:
+            if salary<1:
+                print("Salary must be greater than 0")
+                continue
+        data_entering = False
+    
+    data_entering = True
+    while data_entering:
         department = input("Enter Department :").strip().upper()
         if department == "":
             print("Department must not be emplty")
             continue
+        data_entering = False
 
-        skill = input("Enter skills :").strip().lower()
+    skill = input("Enter skills :").strip().lower()
 
+    data_entering = True
+    while data_entering:
+        dup = False
         email = input("Enter Email :").strip().lower()
-        if "@" not in email:
+        if email.count("@") != 1 or email.count(".com") != 1 :
             print("Invalid email id ")
             continue
-        break
+        for k,v in d.items():
+            if email == v["email"]:
+                dup = True
+        if dup == True:
+            print("email already exist ")
+            continue
+        data_entering = False
 
 
     employee_dict[employee_id] = {
@@ -71,7 +115,6 @@ def Add_employee():
     }
     print("Employee Added")
     return 
-
 
 
 
@@ -240,7 +283,6 @@ def save_data():
 
 """ This function is to load data """
 
-
 def load_data():
     try:
         print("Loading employee data...")
@@ -256,4 +298,5 @@ def load_data():
         print("error occured")
     else:
         print("Employee loaded sucessfully.")
+
 
