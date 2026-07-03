@@ -91,70 +91,78 @@ def search():
 """ This function is to create salary report """
 
 def salary_report():
-    salary = []
-    for v in employee_dict.values():
-        salary.append(v["salary"])
-    print(salary)
-
-    print(f"""
-    
-    ==========================  Salary Report ======================
-    
-    Highest Salary : {max(salary)}
-    Lowest  Salary : {min(salary)}
-    Average Salary : {sum(salary)//len(salary)}
-    Total   Salary : {sum(salary)}
-    Total Employee : {len(salary)}
-    """)
+    try:
+        salary = []
+        for v in employee_dict.values():
+            salary.append(v["salary"])
+        print(f"""
+        
+        ==========================  Salary Report ======================
+        
+        Highest Salary : {max(salary)}
+        Lowest  Salary : {min(salary)}
+        Average Salary : {sum(salary)//len(salary)}
+        Total   Salary : {sum(salary)}
+        Total Employee : {len(salary)}
+        """)
+    except Exception:
+        print("Add or load data and retry")
 
 
 """ This function is to get skill report """
 
 def skill_report():
-    skill ,skills = [],[]
-    empl_python = []
-    empl_django = []
-    d = {}
-    for v in employee_dict.values():
-        skill += v["skill"].split(",")
+    try:
+        skill ,skills = [],[]
+        empl_python = []
+        empl_django = []
+        d = {}
+        for v in employee_dict.values():
+            skill += v["skill"].split(",")
+            for i in skill:
+                if i == "python":
+                    empl_python.append(v["name"])
+                if i == "django":
+                    empl_django.append(v["name"])          
         for i in skill:
-            if i == "python":
-                empl_python.append(v["name"])
-            if i == "django":
-                empl_django.append(v["name"])          
-    for i in skill:
-        if i not in skills:
-            skills.append(i)
-    for i in skills:
-        d[i] = skill.count(i)
-    result = sorted(d.items(),key = lambda x: x[1])
-    print(f"""
-    ================== Skill Report ==============================
-    Total Unique Skills    : {len(skills)}
-    Most Common Skills     : {result[-1][0]}""")
-    print("    Employee having Python :")
-    for i in empl_python:
-        print(f"{i:^65}")
-    print("    Employee having django : ")
-    for i in empl_django:
-        print(f"{i:^65}")
+            if i not in skills:
+                skills.append(i)
+        for i in skills:
+            d[i] = skill.count(i)
+        result = sorted(d.items(),key = lambda x: x[1])
+        print(f"""
+        ================== Skill Report ==============================
+        Total Unique Skills    : {len(skills)}
+        Most Common Skills     : {result[-1][0]}""")
+        print("    Employee having Python :")
+        for i in empl_python:
+            print(f"{i:^65}")
+        print("    Employee having django : ")
+        for i in empl_django:
+            print(f"{i:^65}")
+    except Exception:
+        print("Add or load data and retry")
 
 
 """ This function is to show department report """
 
 def depart_report():
+    data_not_exist = 0
     all_depart,total_depart = [],[]
     for v in employee_dict.values():
         all_depart.append(v["department"])
         if v["department"] not in total_depart:
             total_depart.append(v["department"])
-    print(f"""
-    
-    ==========================  Department Report ======================
-    """)
-    for i in total_depart:
-        count = all_depart.count(i)
-        print(f"{i:^25}: {count} employee ") if count <2 else print(f"{i:^25}: {count} employees ")
+    if total_depart != []:
+        print(f"""
+        
+        ==========================  Department Report ======================
+        """)
+        for i in total_depart:
+            count = all_depart.count(i)
+            print(f"{i:^25}: {count} employee ") if count <2 else print(f"{i:^25}: {count} employees ")
+    else:
+        print("Add or load data and retry")
     
 
 
