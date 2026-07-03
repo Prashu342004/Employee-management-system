@@ -80,39 +80,44 @@ def Add_employee():
 @View_detail           #decorator is used here to view employee table
 def update_emp():
     id = input("Enter Employee ID : ")
-    if id in employee_dict:
-        print("""
-            1. Salary
-            2. Department
-            3. skills
-            4. Email
+    try:
+        if id in employee_dict:
+            print("""
+                1. Salary
+                2. Department
+                3. skills
+                4. Email
 
-        """)
+            """)
 
-        choice = int(input("Enter your Choice"))
-        if choice == 1 :
-            new_salary = int(input("Enter new salary : "))
-            employee_dict[id]["salary"] = new_salary
-        elif choice == 2:
-            new_department = input("Enter New Department : ")
-            employee_dict[id]["department"] = new_department
-        elif choice ==3:
-            new_skills = input("Enter new Skills : ")
-            employee_dict[id]["skill"] = new_skills
-        elif choice ==4:
-            while True:
-                new_email = input("Enter new Email : ")
-                if "@" in new_email:
-                    employee_dict[id]["email"] = new_email
-                    break
-                else:
-                    print("Please enter correct email")
+            choice = int(input("Enter your Choice"))
+            if choice == 1 :
+                new_salary = int(input("Enter new salary : "))
+                employee_dict[id]["salary"] = new_salary
+            elif choice == 2:
+                new_department = input("Enter New Department : ").strip().upper()
+                employee_dict[id]["department"] = new_department
+            elif choice ==3:
+                new_skills = input("Enter new Skills : ")
+                employee_dict[id]["skill"] = new_skills
+            elif choice ==4:
+                while True:
+                    new_email = input("Enter new Email : ")
+                    if "@" in new_email:
+                        employee_dict[id]["email"] = new_email
+                        break
+                    else:
+                        print("Please enter correct email")
+            else:
+                print("please choose correct option")
+
+            print("Employee updated successfully.")
         else:
-            print("please choose correct option")
-
-        print("Employee updated successfully.")
-    else:
-        print("Employee not Found")
+            print("Employee not Found")
+    except ValueError:
+        print(" Entered wrong input")
+    except Exception:
+        print("Try again")
 
 
 """This function is to delete data"""
@@ -146,64 +151,109 @@ def sort_emp():
         4. Department
     
     """)
-    choice = int(input("enter choice : "))
+    try:
+        choice = int(input("enter choice : "))
 
-    if choice == 1:
-        key = []
-        data = []
-        names = [x["name"] for x in employee_dict.values()]
+        if choice == 1:
+            key = []
+            data = []
+            names = [x["name"] for x in employee_dict.values()]
 
-        sorted_v = sorted(names, key = lambda x : x)
-        for i in sorted_v:
-            for k,v in employee_dict.items():
-                if v["name"] == i:
-                    key.append(k)
-                    data.append(v)
-        employee_dict.clear()
-        for i in range(len(key)):
-            employee_dict[key[i]] = data[i]
-    elif choice == 2:
-        key = []
-        data = []
-        names = [x["salary"] for x in employee_dict.values()]
+            sorted_v = sorted(names, key = lambda x : x)
+            for i in sorted_v:
+                for k,v in employee_dict.items():
+                    if v["name"] == i:
+                        key.append(k)
+                        data.append(v)
+            employee_dict.clear()
+            for i in range(len(key)):
+                employee_dict[key[i]] = data[i]
+        elif choice == 2:
+            key = []
+            data = []
+            names = [x["salary"] for x in employee_dict.values()]
 
-        sorted_v = sorted(names, key = lambda x : x)
-        for i in sorted_v:
-            for k,v in employee_dict.items():
-                if v["salary"] == i:
-                    key.append(k)
-                    data.append(v)
-        employee_dict.clear()
-        for i in range(len(key)):
-            employee_dict[key[i]] = data[i]
-    elif choice ==3:
-        key = []
-        data = []
-        names = [x["age"] for x in employee_dict.values()]
+            sorted_v = sorted(names, key = lambda x : x)
+            for i in sorted_v:
+                for k,v in employee_dict.items():
+                    if v["salary"] == i:
+                        key.append(k)
+                        data.append(v)
+            employee_dict.clear()
+            for i in range(len(key)):
+                employee_dict[key[i]] = data[i]
+        elif choice ==3:
+            key = []
+            data = []
+            names = [x["age"] for x in employee_dict.values()]
 
-        sorted_v = sorted(names, key = lambda x : x)
-        for i in sorted_v:
-            for k,v in employee_dict.items():
-                if v["age"] == i:
-                    key.append(k)
-                    data.append(v)
-        employee_dict.clear()
-        for i in range(len(key)):
-            employee_dict[key[i]] = data[i]
-    elif choice == 4:
-        key = []
-        data = []
-        names = [x["department"] for x in employee_dict.values()]
+            sorted_v = sorted(names, key = lambda x : x)
+            for i in sorted_v:
+                for k,v in employee_dict.items():
+                    if v["age"] == i:
+                        key.append(k)
+                        data.append(v)
+            employee_dict.clear()
+            for i in range(len(key)):
+                employee_dict[key[i]] = data[i]
+        elif choice == 4:
+            key = []
+            data = []
+            names = [x["department"] for x in employee_dict.values()]
 
-        sorted_v = sorted(names, key = lambda x : x)
-        for i in sorted_v:
-            for k,v in employee_dict.items():
-                if v["department"] == i:
-                    key.append(k)
-                    data.append(v)
-        employee_dict.clear()
-        for i in range(len(key)):
-            employee_dict[key[i]] = data[i]
+            sorted_v = sorted(names, key = lambda x : x)
+            for i in sorted_v:
+                for k,v in employee_dict.items():
+                    if v["department"] == i:
+                        key.append(k)
+                        data.append(v)
+            employee_dict.clear()
+            for i in range(len(key)):
+                employee_dict[key[i]] = data[i]
+        else:
+            print("enter valid input")
+        print("sorted sucessfully")
+    
+    except ValueError:
+        print("Entered wrong value (please enter numeric value)")
+    except Exception:
+        print("Try Again")
+
+
+""" This function is to save the data """
+
+def save_data():
+    try:
+        if employee_dict != {}:
+            print("Saving employee data...")
+            load_data()
+            with open("Data.txt","w") as file:
+                for k,v in employee_dict.items():
+                    s = f"{k}     {v}\n"
+                    file.write(s)
+    except Exception:
+        print("data not saved")
     else:
-        print("enter valid input")
-    print("sorted sucessfully")
+        print("Data Saved Sucessfully")
+
+
+
+""" This function is to load data """
+
+
+def load_data():
+    try:
+        print("Loading employee data...")
+        data = []
+        with open("Data.txt","r") as f:
+            for i in f:
+                data = i.split("     ")
+                if data[0] not in employee_dict:
+                    employee_dict[data[0]] = eval(data[1]) # I have used eval() to convert string of dict to dict     #### but i can also use ast.literal_eval()   
+    except FileNotFoundError:
+        print("Data do not exist")
+    except Exception:
+        print("error occured")
+    else:
+        print("Employee loaded sucessfully.")
+

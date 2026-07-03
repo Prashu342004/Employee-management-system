@@ -18,8 +18,7 @@ print("""
     9.  Skill Report
     10. Save Data
     11. Load Data
-    12. Memory Demonstration
-    13. Exit 
+    12. Exit 
     """
 )
 
@@ -27,11 +26,12 @@ print("""
 while True:
     
     try:
-        input_data = int(input("Enter the choice"))
+        input_data = int(input("Enter the choice : "))
     except Exception:
         print("enter integer value")
     else:
-        if input_data == 13:
+        if input_data == 12:
+            print("Thanks For using Employee Management System")
             break
         elif input_data == 1:
             C.Add_employee()
@@ -42,6 +42,22 @@ while True:
         elif input_data == 4:
             C.update_emp()
         elif input_data == 5:
+            C.del_emp()
+        elif input_data == 6:
             C.sort_emp()
+        elif input_data == 7:
+            read.salary_report()
+        elif input_data == 8:
+            read.depart_report()
+        elif input_data == 9:
+            read.skill_report()
+        elif input_data == 10:
+            C.save_data()
+        elif input_data == 11:
+            C.load_data()
         else:
             print("wrong input")
+
+
+
+
